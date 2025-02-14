@@ -14,7 +14,6 @@ class SecurityHeaderControllerExtension extends Extension
         $response = $this->owner->getResponse();
 
         $headersToSend = (array) Config::inst()->get('Guttmann\SilverStripe\SecurityHeaderControllerExtension', 'headers');
-        $xHeaderMap = (array) Config::inst()->get('Guttmann\SilverStripe\SecurityHeaderControllerExtension', 'x_headers_map');
         $overrideCSP = (boolean)Config::inst()->get('Guttmann\SilverStripe\SecurityHeaderControllerExtension', 'override_via_cms');
 
         foreach ($headersToSend as $header => $value) {
@@ -35,12 +34,6 @@ class SecurityHeaderControllerExtension extends Extension
                 }
             } else {
                 $response->addHeader($header, $value);
-            }
-
-            if (isset($xHeaderMap[$header])) {
-                foreach ($xHeaderMap[$header] as $xHeader) {
-                    $response->addHeader($xHeader, $value);
-                }
             }
         }
     }

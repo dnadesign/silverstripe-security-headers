@@ -28,7 +28,7 @@ class SecurityHeaderControllerExtension extends Extension
 
                 if ($overrideCSP && SiteConfig::current_site_config()->OverrideYML === 1) {
                     $customCSP = SiteConfig::current_site_config()->CustomCSP;
-                    $response->addHeader($header, preg_replace('/\r|\n/', '', $customCSP));
+                    $response->addHeader($header, preg_replace('/\r|\n/', '', $customCSP ?: ''));
                 } else {
                     $response->addHeader($header, $value);
                 }
